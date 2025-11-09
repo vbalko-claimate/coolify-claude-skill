@@ -24,16 +24,42 @@ Manages Coolify applications and infrastructure through the Coolify API.
 
 ### Environment Configuration
 
-```bash
-# Set required environment variables
-export COOLIFY_API_TOKEN="your-token-here"
-export COOLIFY_API_URL="http://localhost:8000/api/v1"
+**IMPORTANT: If environment variables are not set, ask the user for them before proceeding.**
 
-# Verify connectivity
+Check if credentials are available:
+
+```bash
+# Check if COOLIFY_API_TOKEN is set
+echo $COOLIFY_API_TOKEN
+
+# Check if COOLIFY_API_URL is set
+echo $COOLIFY_API_URL
+```
+
+**If either variable is missing:**
+
+1. Ask user: "I need your Coolify credentials to proceed. Please provide:"
+   - Coolify API token (from Settings → Keys & Tokens in Coolify dashboard)
+   - Coolify API URL (default: `http://localhost:8000/api/v1`)
+
+2. Once user provides credentials, export them:
+
+```bash
+export COOLIFY_API_TOKEN="user-provided-token"
+export COOLIFY_API_URL="user-provided-url"
+```
+
+3. Verify connectivity before continuing:
+
+```bash
 curl -s -H "Authorization: Bearer $COOLIFY_API_TOKEN" \
   "$COOLIFY_API_URL/health"
 # Should return: OK
 ```
+
+**If user doesn't have credentials:**
+- Guide them to get API token from Coolify dashboard
+- Default API URL is usually `http://localhost:8000/api/v1` (with SSH tunnel) or their Coolify server URL
 
 ## Utility Scripts (Recommended)
 

@@ -11,17 +11,12 @@
 
 set -euo pipefail
 
-# Check required environment variables
-if [ -z "${COOLIFY_API_TOKEN:-}" ]; then
-  echo "Error: COOLIFY_API_TOKEN not set"
-  echo "Export it or source .env file"
-  exit 1
-fi
+# Source environment setup helper
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/env-setup.sh"
 
-if [ -z "${COOLIFY_API_URL:-}" ]; then
-  echo "Error: COOLIFY_API_URL not set"
-  exit 1
-fi
+# Setup credentials (will prompt if not set)
+setup_coolify_env || exit 1
 
 # Parse arguments
 FILTER=""
