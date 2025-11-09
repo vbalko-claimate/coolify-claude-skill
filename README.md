@@ -13,23 +13,53 @@ A production-ready Claude Code skill for managing Coolify deployments, applicati
 
 ## Installation
 
+### One-Line Installer (Recommended)
+
+Interactive installer that guides you through the setup:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/vbalko-claimate/coolify-claude-skill/master/install.sh | bash
+```
+
+Or download and run locally:
+
+```bash
+git clone https://github.com/vbalko-claimate/coolify-claude-skill.git
+cd coolify-claude-skill
+bash install.sh
+```
+
+The installer will:
+- ✅ Check prerequisites (curl, jq, git)
+- ✅ Install skill to `~/.claude/skills/coolify`
+- ✅ Set up SSH tunnel (if needed)
+- ✅ Test Coolify API connectivity
+- ✅ Configure API token
+- ✅ Run health check to verify installation
+- ✅ Optionally add environment variables to shell config
+
+### Manual Installation
+
+If you prefer manual setup:
+
+```bash
+# 1. Clone repository
+git clone https://github.com/vbalko-claimate/coolify-claude-skill.git ~/.claude/skills/coolify
+
+# 2. Configure environment
+cp ~/.claude/skills/coolify/.env.example ~/.claude/skills/coolify/.env
+# Edit .env and add your Coolify API token and URL
+
+# 3. Make scripts executable
+chmod +x ~/.claude/skills/coolify/scripts/*.sh
+```
+
 ### Prerequisites
 
 - Claude Pro, Max, Team, or Enterprise subscription
 - Access to Coolify instance
 - Coolify API token (Settings → Keys & Tokens in Coolify dashboard)
 - `curl` and `jq` installed (`brew install jq`)
-
-### Quick Install
-
-```bash
-# Clone to Claude skills directory
-git clone https://github.com/vbalko-claimate/coolify-claude-skill.git ~/.claude/skills/coolify
-
-# Set up environment variables
-cp ~/.claude/skills/coolify/.env.example ~/.claude/skills/coolify/.env
-# Edit .env and add your Coolify API token and URL
-```
 
 ### Configuration
 
@@ -218,6 +248,26 @@ Time: 2025-11-09 08:57:29
 
 ✅ All systems operational
 ```
+
+## Uninstall
+
+To remove the Coolify Claude Skill:
+
+```bash
+# Interactive uninstaller
+curl -fsSL https://raw.githubusercontent.com/vbalko-claimate/coolify-claude-skill/master/uninstall.sh | bash
+
+# Or manually
+rm -rf ~/.claude/skills/coolify
+# Remove environment variables from ~/.zshrc or ~/.bashrc
+# Stop SSH tunnel: pkill -f 'ssh.*8000'
+```
+
+The uninstaller will:
+- Remove skill directory
+- Optionally backup .env file
+- Optionally remove environment variables
+- Optionally stop SSH tunnels
 
 ## Troubleshooting
 
